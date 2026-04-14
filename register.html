@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register Student</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">🎓 StudentHub</div>
+  <nav>
+    <a href="index.html">Home</a>
+  </nav>
+</header>
+
+<section class="card-section">
+  <h2>Student Registration</h2>
+
+  <form id="studentForm" onsubmit="return validateAndSubmit(event)">
+    
+    <div class="form-group">
+      <label>Full Name *</label>
+      <input type="text" id="name" placeholder="Enter full name" />
+      <span class="error" id="nameError"></span>
+    </div>
+
+    <div class="form-group">
+      <label>Email *</label>
+      <input type="text" id="email" placeholder="Enter email" />
+      <span class="error" id="emailError"></span>
+    </div>
+
+    <div class="form-group">
+      <label>Roll Number *</label>
+      <input type="text" id="roll" placeholder="e.g. 202300****" />
+      <span class="error" id="rollError"></span>
+    </div>
+
+    <div class="form-group">
+      <label>Phone *</label>
+      <input type="text" id="phone" placeholder="10-digit mobile number" />
+      <span class="error" id="phoneError"></span>
+    </div>
+
+    <div class="form-group">
+      <label>Branch</label>
+      <select id="branch">
+        <option value="">-- Select Branch --</option>
+        <option>Computer Science</option>
+        <option>Electronics</option>
+        <option>Mechanical</option>
+        <option>Civil</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>CGPA *</label>
+      <input type="text" id="cgpa" placeholder="Between 0.0 and 10.0" />
+      <span class="error" id="cgpaError"></span>
+    </div>
+
+    <button type="submit" class="btn-primary">Register Student</button>
+    <button type="button" class="btn-secondary" onclick="resetForm()">Reset</button>
+  </form>
+
+  <!-- ✅ SUCCESS MESSAGE -->
+  <div id="successMsg" class="success-toast"></div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

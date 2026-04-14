@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Students List</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">🎓 StudentHub</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="register.html">Register</a>
+  </nav>
+</header>
+
+<section class="card-section">
+  <h2>Registered Students <span id="count" class="badge">0</span></h2>
+
+  <input type="text" id="searchInput"
+    placeholder="🔍 Search by name or roll..."
+    onkeyup="filterStudents()" />
+
+  <div class="table-wrapper">
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>#</th><th>Name</th><th>Email</th><th>Roll</th><th>Branch</th><th>CGPA</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="studentBody">
+        <tr><td colspan="7" class="empty">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
