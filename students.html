@@ -1,41 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Students List</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Students Dashboard | StudentHub</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
-  <div class="logo">🎓 StudentHub</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="register.html">Register</a>
-  </nav>
+    <div class="logo">🎓 StudentHub</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="register.html">Register</a>
+        <a href="students.html">Students</a>
+    </nav>
+
+    <a href="register.html" class="login-btn">+ Add Student</a>
 </header>
 
-<section class="card-section">
-  <h2>Registered Students <span id="count" class="badge">0</span></h2>
-
-  <input type="text" id="searchInput"
-    placeholder="🔍 Search by name or roll..."
-    onkeyup="filterStudents()" />
-
-  <div class="table-wrapper">
-    <table id="studentTable">
-      <thead>
-        <tr>
-          <th>#</th><th>Name</th><th>Email</th><th>Roll</th><th>Branch</th><th>CGPA</th><th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="studentBody">
-        <tr><td colspan="7" class="empty">Loading...</td></tr>
-      </tbody>
-    </table>
-  </div>
+<!-- HERO TITLE -->
+<section class="hero small-hero">
+    <div class="hero-text">
+        <h1>Students Dashboard</h1>
+        <p>Manage, search and monitor all registered students professionally.</p>
+    </div>
 </section>
+
+<!-- DASHBOARD STATS -->
+<section class="stats">
+
+    <div class="card">
+        <h2 id="count">0</h2>
+        <p>Total Students</p>
+    </div>
+
+    <div class="card">
+        <h2>24/7</h2>
+        <p>Cloud Access</p>
+    </div>
+
+    <div class="card">
+        <h2>100%</h2>
+        <p>Secure Records</p>
+    </div>
+
+</section>
+
+<!-- STUDENT TABLE SECTION -->
+<section class="card-section">
+
+    <div class="section-top">
+        <h2>Registered Students</h2>
+
+        <input
+            type="text"
+            id="search"
+            placeholder="🔍 Search by name, roll, branch..."
+            onkeyup="searchStudents()"
+        >
+    </div>
+
+    <div class="table-wrapper">
+
+        <table id="studentTable">
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Roll</th>
+                    <th>Branch</th>
+                    <th>CGPA</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="studentBody">
+                <tr>
+                    <td colspan="7" class="empty">Loading students...</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 StudentHub | Professional Student Records Portal</p>
+</footer>
 
 <script src="script.js"></script>
 </body>

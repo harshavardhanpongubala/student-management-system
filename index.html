@@ -1,32 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Management System</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudentHub</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <div class="logo">🎓 StudentHub</div>
-  <nav>
-    <a href="#home">Home</a>
-  </nav>
+    <div class="logo">🎓 StudentHub</div>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="students.html">Students</a>
+        <a href="register.html">Register</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <a href="#" class="login-btn">Login</a>
 </header>
 
-<section id="home" class="hero">
-  <h1>Student Management System</h1>
-  <p>A complete web application using HTML, CSS, JavaScript & Supabase.</p>
+<section class="hero">
+    <div class="hero-text">
+        <h1>Manage Student Records Smarter</h1>
+        <p>Modern cloud-based student information system with secure storage, fast access and professional dashboard.</p>
 
-  <!-- ✅ CHANGED BUTTON -->
-  <a href="register.html">
-    <button>Get Started →</button>
-  </a>
+        <div class="buttons">
+            <a href="register.html" class="btn">Get Started</a>
+            <a href="students.html" class="btn secondary">View Students</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="card">
+        <h2>500+</h2>
+        <p>Students Managed</p>
+    </div>
+
+    <div class="card">
+        <h2>24/7</h2>
+        <p>Cloud Access</p>
+    </div>
+
+    <div class="card">
+        <h2>100%</h2>
+        <p>Secure Records</p>
+    </div>
 </section>
 
 <footer>
-  <p>© 2026 StudentHub | Clean Version (Supabase)</p>
+  <p>© 2025 StudentHub | Clean Version (Supabase)</p>
 </footer>
 
 <script src="script.js"></script>
