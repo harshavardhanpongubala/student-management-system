@@ -5,7 +5,7 @@
 
 // ===== SUPABASE CONFIG =====
 const SUPABASE_URL = "https://aersbyzfglbffwypiayp.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlcnNieXpmZ2xiZmZ3eXBpYXlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxODUxOTMsImV4cCI6MjA5MTc2MTE5M30.v19ajqRNIh34C7vziSd15dHyvf1SmJcX-obP_w4tYr8";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlcnNieXpmZ2xiZmZ3eXBpYXlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxODUxOTMsImV4cCI6MjA5MTc2MTE5M30.v19ajqRNIh34C7vziSd15dHyvf1SmJcX-obP_w4tYr8"
 
 // ===== GLOBAL DATA =====
 let students = [];
