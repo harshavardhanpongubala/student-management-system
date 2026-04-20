@@ -2,41 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudentHub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Students Dashboard | StudentHub</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
     <div class="logo">🎓 StudentHub</div>
 
     <nav>
-        <a href="#">Home</a>
-        <a href="students.html">Students</a>
+        <a href="index.html">Home</a>
         <a href="register.html">Register</a>
-        <a href="#">Contact</a>
+        <a href="students.html">Students</a>
     </nav>
 
-    <a href="#" class="login-btn">Login</a>
+    <a href="register.html" class="login-btn">+ Add Student</a>
 </header>
 
-<section class="hero">
+<!-- HERO TITLE -->
+<section class="hero small-hero">
     <div class="hero-text">
-        <h1>Manage Student Records Smarter</h1>
-        <p>Modern cloud-based student information system with secure storage, fast access and professional dashboard.</p>
-
-        <div class="buttons">
-            <a href="register.html" class="btn">Get Started</a>
-            <a href="students.html" class="btn secondary">View Students</a>
-        </div>
+        <h1>Students Dashboard</h1>
+        <p>Manage, search and monitor all registered students professionally.</p>
     </div>
 </section>
 
+<!-- DASHBOARD STATS -->
 <section class="stats">
+
     <div class="card">
-        <h2>500+</h2>
-        <p>Students Managed</p>
+        <h2 id="count">0</h2>
+        <p>Total Students</p>
     </div>
 
     <div class="card">
@@ -48,10 +46,54 @@
         <h2>100%</h2>
         <p>Secure Records</p>
     </div>
+
 </section>
 
+<!-- STUDENT TABLE SECTION -->
+<section class="card-section">
+
+    <div class="section-top">
+        <h2>Registered Students</h2>
+
+        <input
+            type="text"
+            id="search"
+            placeholder="🔍 Search by name, roll, branch..."
+            onkeyup="searchStudents()"
+        >
+    </div>
+
+    <div class="table-wrapper">
+
+        <table id="studentTable">
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Roll</th>
+                    <th>Branch</th>
+                    <th>CGPA</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="studentBody">
+                <tr>
+                    <td colspan="7" class="empty">Loading students...</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <p>© 2025 StudentHub | Clean Version (Supabase)</p>
+    <p>© 2026 StudentHub | Professional Student Records Portal</p>
 </footer>
 
 <script src="script.js"></script>
