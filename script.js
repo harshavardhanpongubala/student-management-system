@@ -1,64 +1,60 @@
-// ================================
-// STUDENTHUB PROFESSIONAL SCRIPT.JS
-// Supabase + Validation + Search + Delete + UX
-// ================================
+// =======================================
+// STUDENTHUB FINAL WORKING SCRIPT.JS
+// Supabase + Register + Fetch + Delete + Search
+// =======================================
 
 // ===== SUPABASE CONFIG =====
 const SUPABASE_URL = "https://aersbyzfglbffwypiayp.supabase.co";
-const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlcnNieXpmZ2xiZmZ3eXBpYXlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxODUxOTMsImV4cCI6MjA5MTc2MTE5M30.v19ajqRNIh34C7vziSd15dHyvf1SmJcX-obP_w4tYr8";
 
 // ===== GLOBAL DATA =====
 let students = [];
 
-// ================================
+// =======================================
 // VALIDATE FORM
-// ================================
+// =======================================
 function validateAndSubmit(event) {
     event.preventDefault();
 
     let valid = true;
 
-    // Clear old errors
-    ['nameError', 'emailError', 'rollError', 'phoneError', 'cgpaError'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = "";
-    });
+    clearErrors();
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const roll = document.getElementById("roll").value.trim();
-    const phone = document.getElementById("phone").value.trim();
+    const name   = document.getElementById("name").value.trim();
+    const email  = document.getElementById("email").value.trim();
+    const roll   = document.getElementById("roll").value.trim();
+    const phone  = document.getElementById("phone").value.trim();
     const branch = document.getElementById("branch").value;
-    const cgpa = document.getElementById("cgpa").value.trim();
+    const cgpa   = document.getElementById("cgpa").value.trim();
 
     // Name
     if (name.length < 3) {
-        document.getElementById("nameError").textContent = "Enter valid name";
+        setError("nameError", "Enter valid full name");
         valid = false;
     }
 
     // Email
     if (!email.includes("@") || !email.includes(".")) {
-        document.getElementById("emailError").textContent = "Enter valid email";
+        setError("emailError", "Enter valid email");
         valid = false;
     }
 
     // Roll
     if (roll.length < 2) {
-        document.getElementById("rollError").textContent = "Enter valid roll no";
+        setError("rollError", "Enter valid roll number");
         valid = false;
     }
 
     // Phone
     if (phone.length !== 10 || isNaN(phone)) {
-        document.getElementById("phoneError").textContent = "Enter valid phone";
+        setError("phoneError", "Enter valid 10-digit phone");
         valid = false;
     }
 
     // CGPA
     const cgpaNum = parseFloat(cgpa);
     if (isNaN(cgpaNum) || cgpaNum < 0 || cgpaNum > 10) {
-        document.getElementById("cgpaError").textContent = "CGPA must be 0 - 10";
+        setError("cgpaError", "CGPA must be 0 to 10");
         valid = false;
     }
 
@@ -72,14 +68,16 @@ function validateAndSubmit(event) {
             cgpa: cgpaNum
         });
     }
+
+    return false;
 }
 
-// ================================
+// =======================================
 // ADD STUDENT
-// ================================
+// =======================================
 async function addStudent(student) {
 
-    showMessage("⏳ Saving student...", "#0d6efd");
+    showMessage("Saving student...", "#0d6efd");
 
     try {
         const res = await fetch(`${SUPABASE_URL}/rest/v1/students`, {
@@ -93,22 +91,25 @@ async function addStudent(student) {
             body: JSON.stringify(student)
         });
 
-        if (!res.ok) throw new Error("Insert failed");
+        if (!res.ok) {
+            const errText = await res.text();
+            throw new Error(errText);
+        }
 
-        showMessage(`✅ ${student.name} added successfully!`, "#198754");
+        showMessage(`✅ ${student.name} registered successfully!`, "#198754");
 
         resetForm();
         fetchStudents();
 
     } catch (error) {
-        showMessage("❌ Failed to add student", "#dc3545");
         console.error(error);
+        showMessage("❌ Failed to register student", "#dc3545");
     }
 }
 
-// ================================
+// =======================================
 // FETCH STUDENTS
-// ================================
+// =======================================
 async function fetchStudents() {
 
     try {
@@ -127,13 +128,13 @@ async function fetchStudents() {
         renderTable(students);
 
     } catch (error) {
-        console.error("Fetch Error:", error);
+        console.error(error);
     }
 }
 
-// ================================
+// =======================================
 // DELETE STUDENT
-// ================================
+// =======================================
 async function deleteStudent(id) {
 
     const confirmDelete = confirm("Delete this student permanently?");
@@ -158,9 +159,9 @@ async function deleteStudent(id) {
     }
 }
 
-// ================================
+// =======================================
 // RENDER TABLE
-// ================================
+// =======================================
 function renderTable(data) {
 
     const tbody = document.getElementById("studentBody");
@@ -168,12 +169,12 @@ function renderTable(data) {
 
     if (!tbody) return;
 
-    count.textContent = data.length;
+    if (count) count.textContent = data.length;
 
     if (data.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="7">📭 No student records found</td>
+                <td colspan="7" class="empty">No student records found</td>
             </tr>
         `;
         return;
@@ -196,15 +197,15 @@ function renderTable(data) {
     `).join("");
 }
 
-// ================================
-// SEARCH STUDENTS
-// ================================
+// =======================================
+// SEARCH
+// =======================================
 function searchStudents() {
 
-    const term = document
-        .getElementById("search")
-        .value
-        .toLowerCase();
+    const input = document.getElementById("search");
+    if (!input) return;
+
+    const term = input.value.toLowerCase();
 
     const filtered = students.filter(s =>
         s.name.toLowerCase().includes(term) ||
@@ -215,17 +216,34 @@ function searchStudents() {
     renderTable(filtered);
 }
 
-// ================================
-// RESET FORM
-// ================================
+// =======================================
+// HELPERS
+// =======================================
 function resetForm() {
     const form = document.getElementById("studentForm");
     if (form) form.reset();
 }
 
-// ================================
-// SUCCESS / ERROR MESSAGE
-// ================================
+function setError(id, message) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = message;
+}
+
+function clearErrors() {
+    const ids = [
+        "nameError",
+        "emailError",
+        "rollError",
+        "phoneError",
+        "cgpaError"
+    ];
+
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = "";
+    });
+}
+
 function showMessage(text, color) {
 
     const msg = document.getElementById("successMsg");
@@ -236,8 +254,9 @@ function showMessage(text, color) {
     msg.style.background = color;
     msg.style.color = "white";
     msg.style.padding = "12px";
-    msg.style.borderRadius = "8px";
     msg.style.marginTop = "15px";
+    msg.style.borderRadius = "8px";
+    msg.style.textAlign = "center";
     msg.textContent = text;
 
     setTimeout(() => {
@@ -245,12 +264,11 @@ function showMessage(text, color) {
     }, 2500);
 }
 
-// ================================
-// PAGE LOAD
-// ================================
+// =======================================
+// LOAD PAGE
+// =======================================
 window.onload = () => {
 
-    // Students page
     if (document.getElementById("studentBody")) {
         fetchStudents();
     }
